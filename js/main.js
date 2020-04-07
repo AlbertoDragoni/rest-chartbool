@@ -36,19 +36,31 @@ $.ajax({
                 valoriMese.push(venditeMese[key]);
         }
         var ctx = $('#graficoLine');
-            var chart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                        labels: labelsMese,
-                        datasets: [{
-                        label: 'Milestone 1',
-                        backgroundColor: 'red',
-                        borderColor: 'blue',
-                        lineTension: 0,
-                        data: valoriMese
+        var chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                    labels: labelsMese,
+                    datasets: [{
+                    label: 'Milestone 1',
+                    backgroundColor: 'red',
+                    borderColor: 'blue',
+                    lineTension: 0,
+                    data: valoriMese
                     }]
                 }
             });
-
+        // var ctx2 = $('#graficoPie');
+        // var myPieChart = new Chart(ctx, {
+        //     type: 'pie',
+        //     data: {
+        //       labels: labelsMese,
+        //       datasets: [{
+        //           label: 'Milestone 2',
+        //           backgroundColor: ['red', 'blue', 'yellow'],
+        //           borderColor: 'white',
+        //           data: valoriMese
+        //       }]
+        //   }
+        // });
     }
 });
