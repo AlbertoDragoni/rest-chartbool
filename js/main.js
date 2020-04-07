@@ -1,8 +1,18 @@
-var venditeMese = {};
-var labelsMese = [];
-var valoriMese = [];
-console.log(labelsMese);
-console.log(valoriMese);
+var venditeMese = {
+    'gennaio': 0,
+    'febbraio': 0,
+    'marzo': 0,
+    'aprile': 0,
+    'maggio': 0,
+    'giugno': 0,
+    'luglio': 0,
+    'agosto': 0,
+    'settembre': 0,
+    'ottobre': 0,
+    'novembre': 0,
+    'dicembre': 0
+};
+
 
 $.ajax({
     url: 'http://157.230.17.132:4007/sales',
@@ -17,28 +27,28 @@ $.ajax({
             }
             venditeMese[dataMese] += risultato.amount;
         }
+        var datigrafico = {
+            labelsMese: [],
+            valoriMese: []
+        }
+        console.log(datigrafico);
         for (var key in venditeMese) {
-                labelsMese.push(key);
-                valoriMese.push(venditeMese[key]);
+                datigrafico.labelsMese.push(key);
+                datigrafico.valoriMese.push(venditeMese[key]);
             }
+            var ctx = $('#graficoLine');
+                var chart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                            labels: datigrafico.labelsMese,
+                            datasets: [{
+                            label: 'Milestone 1',
+                            backgroundColor: 'red',
+                            borderColor: 'blue',
+                            lineTension: 0,
+                            data: datigrafico.valoriMese
+                        }]
+                    }
+                });
     }
 });
-
-    // var ctx = $('#graficoLine');
-    // var chart = new Chart(ctx, {
-    //
-    // type: 'line',
-    //
-    // data: {
-    //     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    //     datasets: [{
-    //         label: 'My First dataset',
-    //         backgroundColor: 'rgb(255, 99, 132)',
-    //         borderColor: 'rgb(255, 99, 132)',
-    //         data: [0, 10, 5, 2, 20, 30, 45]
-    //     }]
-    // },
-    //
-    // // Configuration options go here
-    // options: {}
-    // });
