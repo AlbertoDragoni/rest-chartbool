@@ -1,4 +1,13 @@
 
+var salesmen = [
+    {
+        id: '',
+        saleman: '',
+        amount: '',
+        date: ''
+    }
+];
+
 $.ajax({
     url: 'http://157.230.17.132:4007/sales',
     method: 'GET',
@@ -11,7 +20,8 @@ $.ajax({
                 amount: risultato.amount,
                 date: risultato.date
             };
-            console.log(venditori);
+            salesmen.push(venditori);
         }
     }
 });
+console.log(salesmen);
