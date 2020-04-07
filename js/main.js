@@ -13,6 +13,10 @@ var venditeMese = {
     'dicembre': 0
 };
 
+var labelsMese = [];
+var valoriMese = [];
+console.log(labelsMese);
+console.log(valoriMese);
 
 $.ajax({
     url: 'http://157.230.17.132:4007/sales',
@@ -27,28 +31,24 @@ $.ajax({
             }
             venditeMese[dataMese] += risultato.amount;
         }
-        var datigrafico = {
-            labelsMese: [],
-            valoriMese: []
-        }
-        console.log(datigrafico);
         for (var key in venditeMese) {
-                datigrafico.labelsMese.push(key);
-                datigrafico.valoriMese.push(venditeMese[key]);
-            }
-            var ctx = $('#graficoLine');
-                var chart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                            labels: datigrafico.labelsMese,
-                            datasets: [{
-                            label: 'Milestone 1',
-                            backgroundColor: 'red',
-                            borderColor: 'blue',
-                            lineTension: 0,
-                            data: datigrafico.valoriMese
-                        }]
-                    }
-                });
+                labelsMese.push(key);
+                valoriMese.push(venditeMese[key]);
+        }
+        var ctx = $('#graficoLine');
+            var chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                        labels: labelsMese,
+                        datasets: [{
+                        label: 'Milestone 1',
+                        backgroundColor: 'red',
+                        borderColor: 'blue',
+                        lineTension: 0,
+                        data: valoriMese
+                    }]
+                }
+            });
+
     }
 });
