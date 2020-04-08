@@ -10,37 +10,32 @@
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
-        <div class="container-line">
-            <canvas id="graficoLine"></canvas>
+        <div class="container-grafici">
+            <div class="container-line">
+                <canvas id="graficoLine"></canvas>
+            </div>
+            <div class="container-pie">
+                <canvas id="graficoPie"></canvas>
+            </div>
         </div>
-        <div class="container-pie">
-            <canvas id="graficoPie"></canvas>
-        </div>
-        <div class="btn-venditori">
-            <label for="cars">Scegli un venditore:</label>
-            <select id="cars">
-              <option value="Marco">Marco</option>
-              <option value="Giuseppe">Giuseppe</option>
-              <option value="Riccardo">Riccardo</option>
-              <option value="Roberto">Roberto</option>
-            </select>
-        </div>
-        <div class="btn-mesi">
-            <label for="cars">Scegli un mese:</label>
-            <select id="cars">
-              <option value="Gennaio">Gennaio</option>
-              <option value="Febbraio">Febbraio</option>
-              <option value="Marzo">Marzo</option>
-              <option value="Aprile">Aprile</option>
-              <option value="Maggio">Maggio</option>
-              <option value="Giugno">Giugno</option>
-              <option value="Luglio">Luglio</option>
-              <option value="Agosto">Agosto</option>
-              <option value="Settembre">Settembre</option>
-              <option value="Ottobre">Ottobre</option>
-              <option value="Novembre">Novembre</option>
-              <option value="Dicembre">Dicembre</option>
-            </select>
+        <div class="btns">
+            <div class="btn btn-venditori">
+                <label>Scegli un venditore:</label>
+                <select id="nomi-venditori">
+                  <option value="Marco">Marco</option>
+                  <option value="Giuseppe">Giuseppe</option>
+                  <option value="Riccardo">Riccardo</option>
+                  <option value="Roberto">Roberto</option>
+                </select>
+            </div>
+            <div class="btn btn-amount">
+                <label>Inserisci dati vendita</label>
+                <input type="text" name="Vendite" value="">
+            </div>
+            <div class="btn btn-date">
+                <label>Inserisci data</label>
+                <input type="date" name="Vendite" value="">
+            </div>
         </div>
         <script src="js/main.js" ></script>
     </body>
