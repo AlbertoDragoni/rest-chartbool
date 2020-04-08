@@ -64,8 +64,8 @@ $.ajax({
             var rispostaVenditore = rispostaDati[i];
             var venditore = rispostaVenditore.salesman;
             var fatturato = rispostaVenditore.amount;
-            // console.log(venditore);
-            console.log(fatturato);
+            console.log(venditore);
+            // console.log(fatturato);
             if (datiSecGrafico[venditore] === undefined) {
                 datiSecGrafico[venditore] = 0;
             }
@@ -77,7 +77,7 @@ $.ajax({
         }
          var ctx = $('#graficoPie');
          var chart = new Chart(ctx, {
-            type: 'pie',
+            type: 'doughnut',
             data: {
             labels: nomiVenditori,
             datasets: [{
