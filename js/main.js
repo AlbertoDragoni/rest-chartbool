@@ -22,6 +22,8 @@ $.ajax({
    }
 });
 
+
+
 function datiPerGrafico1 (data) {
     var rispostaDati = data;
     var venditeMese = {
@@ -114,4 +116,50 @@ function graficoDue (nomiVenditori, fatturatoVenditori){
             }]
         }
     });
+    $('#go').click(function(){
+    apiPost();
+    });
+};
+function apiPost(){
+    var salesmen = $('.nome-venditori').val();
+    console.log(salesmen);
+    var dataInput = moment($("#data-input").val()).format("DD/MM/YYYY");
+    var amountInput = parseInt($(".input-amount").val());
+    $.ajax({
+        url: 'http://157.230.17.132:4007/sales',
+        method: 'POST',
+        data : {"salesman": salesmen, "amount": amountInput, "date": dataInput},
+        success: function (data) {
+
+        },
+        error: function() {
+            alert('error')
+        }
+    });
+    $.ajax({
+        url: 'http://157.230.17.132:4007/sales',
+        method: 'GET',
+        success: function (data) {
+            var datiProcessati = datiPerGrafico1(data);
+            graficoUno(datiProcessati.mesi, datiProcessati.fatturato);
+        },
+        error: function() {
+            alert('error')
+        }
+    });
+    $.ajax({
+        url: 'http://157.230.17.132:4007/sales',
+        method: 'GET',
+        success: function (data) {
+            var datiProcessati = datiPerGrafico2(data);
+            graficoDue(datiProcessati.venditori, datiProcessati.valoreVendite);
+
+        },
+        error: function() {
+            alert('error')
+        }
+    });
+    $('#nome-venditori').empty();
+    $("#data-input").empty();
+    $(".input-amount").empty();
 };

@@ -21,24 +21,24 @@
         <div class="btns">
             <div class="btn btn-venditori">
                 <label>Scegli un venditore:</label>
-                <select id="nomi-venditori">
-                  <option value="Marco">Marco</option>
-                  <option value="Giuseppe">Giuseppe</option>
-                  <option value="Riccardo">Riccardo</option>
-                  <option value="Roberto">Roberto</option>
+                <select >
+                  <option class="nomi-venditori" value="Marco">Marco</option>
+                  <option class="nomi-venditori" value="Giuseppe">Giuseppe</option>
+                  <option class="nomi-venditori" value="Riccardo">Riccardo</option>
+                  <option class="nomi-venditori" value="Roberto">Roberto</option>
                 </select>
             </div>
             <div class="btn btn-amount">
                 <label>Inserisci dati vendita</label>
-                <input type="text" name="Vendite" value="">
+                <input id="input-amount" type="text" name="Vendite" value="">
             </div>
             <div class="btn btn-date">
                 <label>Inserisci data</label>
-                <input class="input-date" type="date" min="2017-01-01" max="2017-12-31">
+                <input id="data-input" class="input-date" type="date" min="2017-01-01" max="2017-12-31">
             </div>
         </div>
         <div class="btn-go">
-            <button type="button" name="button">GO!!!</button>
+            <button id="go" type="button" name="button">GO!!!</button>
         </div>
         <script src="js/main.js" ></script>
     </body>
