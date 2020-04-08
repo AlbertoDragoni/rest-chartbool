@@ -90,3 +90,5 @@ $.ajax({
     });
     }
 });
+var nomeInserito = $('#nomi-venditori').value();
+console.log(nomeInserito);
