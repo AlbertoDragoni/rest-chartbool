@@ -13,10 +13,14 @@ var venditeMese = {
     'dicembre': 0
 };
 
+var datiSecGrafico = {};
+
 var labelsMese = [];
 var valoriMese = [];
-console.log(labelsMese);
-console.log(valoriMese);
+// console.log(labelsMese);
+// console.log(valoriMese);
+var nomiVenditori = [];
+var fatturatoVenditori = [];
 
 $.ajax({
     url: 'http://157.230.17.132:4007/sales',
@@ -41,26 +45,48 @@ $.ajax({
             data: {
                     labels: labelsMese,
                     datasets: [{
-                    label: 'Milestone 1',
+                    label: 'Grafico 1',
                     backgroundColor: 'red',
                     borderColor: 'blue',
-                    lineTension: 0,
                     data: valoriMese
                     }]
                 }
             });
-        // var ctx2 = $('#graficoPie');
-        // var myPieChart = new Chart(ctx, {
-        //     type: 'pie',
-        //     data: {
-        //       labels: labelsMese,
-        //       datasets: [{
-        //           label: 'Milestone 2',
-        //           backgroundColor: ['red', 'blue', 'yellow'],
-        //           borderColor: 'white',
-        //           data: valoriMese
-        //       }]
-        //   }
-        // });
+    }
+});
+$.ajax({
+    url: 'http://157.230.17.132:4007/sales',
+    method: 'GET',
+    success: function (data) {
+        var rispostaDati = data;
+        // console.log(rispostaDati);
+        for (var i = 0; i < rispostaDati.length; i++) {
+            var rispostaVenditore = rispostaDati[i];
+            var venditore = rispostaVenditore.salesman;
+            var fatturato = rispostaVenditore.amount;
+            // console.log(venditore);
+            console.log(fatturato);
+            if (datiSecGrafico[venditore] === undefined) {
+                datiSecGrafico[venditore] = 0;
+            }
+            datiSecGrafico[venditore] += fatturato;
+        }
+        for (var key in datiSecGrafico) {
+            nomiVenditori.push(key)
+            fatturatoVenditori.push(datiSecGrafico[key])
+        }
+         var ctx = $('#graficoPie');
+         var chart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+            labels: nomiVenditori,
+            datasets: [{
+                label: 'Grafico 2',
+                backgroundColor: ['green', 'blue', 'yellow', 'purple'],
+                borderColor: 'white',
+                data: fatturatoVenditori
+            }]
+        },
+    });
     }
 });
