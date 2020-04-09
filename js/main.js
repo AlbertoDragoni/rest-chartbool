@@ -21,7 +21,7 @@ $.ajax({
        alert('errore, riprova!')
    }
 });
-
+$('#go').click(apiPost);
 
 
 function datiPerGrafico1 (data) {
@@ -47,7 +47,7 @@ function datiPerGrafico1 (data) {
         if (venditeMese[dataMese] === undefined) {
             venditeMese[dataMese] = 0;
         }
-        venditeMese[dataMese] += risultato.amount;
+        venditeMese[dataMese] += parseInt(risultato.amount);
     }
     var labelsMese = [];
     var valoriMese = [];
@@ -82,8 +82,7 @@ function datiPerGrafico2 (data){
     for (var i = 0; i < rispostaDati.length; i++) {
         var rispostaVenditore = rispostaDati[i];
         var venditore = rispostaVenditore.salesman;
-        var fatturato = rispostaVenditore.amount;
-        console.log(venditore);
+        var fatturato = parseInt(rispostaVenditore.amount);
 
         if (datiSecGrafico[venditore] === undefined) {
             datiSecGrafico[venditore] = 0;
@@ -116,50 +115,52 @@ function graficoDue (nomiVenditori, fatturatoVenditori){
             }]
         }
     });
-    $('#go').click(function(){
-    apiPost();
-    });
 };
+
 function apiPost(){
-    var salesmen = $('.nome-venditori').val();
-    console.log(salesmen);
-    var dataInput = moment($("#data-input").val()).format("DD/MM/YYYY");
-    var amountInput = parseInt($(".input-amount").val());
+    var nomeVenditore = $('#nomi-venditori').val();
+    console.log(nomeVenditore);
+    var dataVendita = $('#data-input').val();
+    var dataVenditaFormattati = moment(dataVendita, 'YYYY-MM-DD').format('DD/MM/YYYY');
+    console.log(dataVenditaFormattati);
+    var datiAmount = parseInt($('#input-amount').val());
+    console.log(datiAmount);
     $.ajax({
         url: 'http://157.230.17.132:4007/sales',
         method: 'POST',
-        data : {"salesman": salesmen, "amount": amountInput, "date": dataInput},
+        data : {"salesman": nomeVenditore,
+                "amount": datiAmount,
+                "date": dataVenditaFormattati},
         success: function (data) {
+            $.ajax({
+                url: 'http://157.230.17.132:4007/sales',
+                method: 'GET',
+                success: function (data) {
+                    var datiProcessati = datiPerGrafico1(data);
+                    graficoUno(datiProcessati.mesi, datiProcessati.fatturato);
+                },
+                error: function() {
+                    alert('error')
+                }
+            });
+            $.ajax({
+                url: 'http://157.230.17.132:4007/sales',
+                method: 'GET',
+                success: function (data) {
+                    var datiProcessati = datiPerGrafico2(data);
+                    graficoDue(datiProcessati.venditori, datiProcessati.valoreVendite);
+
+                },
+                error: function() {
+                    alert('error')
+                }
+            });
 
         },
         error: function() {
             alert('error')
         }
     });
-    $.ajax({
-        url: 'http://157.230.17.132:4007/sales',
-        method: 'GET',
-        success: function (data) {
-            var datiProcessati = datiPerGrafico1(data);
-            graficoUno(datiProcessati.mesi, datiProcessati.fatturato);
-        },
-        error: function() {
-            alert('error')
-        }
-    });
-    $.ajax({
-        url: 'http://157.230.17.132:4007/sales',
-        method: 'GET',
-        success: function (data) {
-            var datiProcessati = datiPerGrafico2(data);
-            graficoDue(datiProcessati.venditori, datiProcessati.valoreVendite);
 
-        },
-        error: function() {
-            alert('error')
-        }
-    });
-    $('#nome-venditori').empty();
-    $("#data-input").empty();
-    $(".input-amount").empty();
+
 };
